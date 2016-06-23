@@ -113,7 +113,12 @@ function main(opts) {
                     labels["status_code"] = res.statusCode;
                     timer();
                 }
-                labels["path"] = req.path;
+                labels["method"] = req.method;
+                if (req.swagger) {
+                    labels["path"] = req.swagger.apipath.substring(1);
+                } else {
+                    labels["path"] = req.path;
+                }
             });
         }
 
