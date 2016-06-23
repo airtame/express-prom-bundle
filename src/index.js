@@ -115,7 +115,7 @@ function main(opts) {
                 }
                 labels["method"] = req.method;
                 if (req.swagger) {
-                    labels["path"] = req.swagger.apipath.substring(1);
+                    labels["path"] = req.swagger.apiPath.substring(1);
                 } else {
                     labels["path"] = req.path;
                 }
