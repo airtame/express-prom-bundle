@@ -113,6 +113,7 @@ function main(opts) {
                     labels["status_code"] = res.statusCode;
                     timer();
                 }
+                labels["path"] = req.path;
             });
         }
 
