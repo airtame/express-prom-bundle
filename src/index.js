@@ -59,7 +59,7 @@ function main(opts) {
             "nodejs_memory_heap_used_bytes",
             "value of process.memoryUsage().heapUsed"
         ),
-        "http_requestss_total": () => factory.newCounter(
+        "http_requests_total": () => factory.newCounter(
             "http_requests_total",
             "http request counter"
         ),
