@@ -59,9 +59,13 @@ function main(opts) {
             "nodejs_memory_heap_used_bytes",
             "value of process.memoryUsage().heapUsed"
         ),
-        "http_request_seconds": () => {
+        "http_requestss_total": () => factory.newCounter(
+            "http_requests_total",
+            "http request counter"
+        ),
+        "http_requests_seconds": () => {
             const metric = factory.newHistogram(
-                "http_request_seconds",
+                "http_requests_seconds",
                 "number of http responses labeled with status code",
                 {
                     buckets: [0.003, 0.03, 0.1, 0.3, 1.5, 10]
@@ -88,9 +92,9 @@ function main(opts) {
     let middleware = function (req, res, next) {
         let timer, labels;
 
-        if (metrics["http_request_seconds"]) {
+        if (metrics["http_requests_seconds"]) {
             labels = {"status_code": 0};
-            timer = metrics["http_request_seconds"].startTimer(labels);
+            timer = metrics["http_requests_seconds"].startTimer(labels);
         }
 
         if (req.path == "/metrics") {
@@ -119,6 +123,7 @@ function main(opts) {
                 } else {
                     labels["path"] = req.path;
                 }
+                metrics["http_requests_total"].inc(labels);
             });
         }
 
