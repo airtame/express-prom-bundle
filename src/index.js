@@ -113,10 +113,7 @@ function main(opts) {
 
         if (timer) {
             onFinished(res, () => {
-                if (res.statusCode) {
-                    labels["status_code"] = res.statusCode;
-                    timer();
-                }
+                labels["status_code"] = res.statusCode;
                 labels["method"] = req.method;
                 if (req.swagger) {
                     labels["path"] = req.swagger.apiPath.substring(1);
@@ -124,6 +121,7 @@ function main(opts) {
                     labels["path"] = req.path;
                 }
                 metrics["http_requests_total"].inc(labels);
+                timer();
             });
         }
 
