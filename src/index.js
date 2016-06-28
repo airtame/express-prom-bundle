@@ -59,14 +59,6 @@ function main(opts) {
             "nodejs_memory_heap_used_bytes",
             "value of process.memoryUsage().heapUsed"
         ),
-        "http_requests_total": () => {
-            const metric = factory.newCounter(
-              "http_requests_total",
-              "http request counter"
-            );
-            metric.labelNames = ["status_code", "path", "method"];
-            return metric;
-        },
         "http_requests_seconds": () => {
             const metric = factory.newHistogram(
                 "http_requests_seconds",
@@ -124,7 +116,6 @@ function main(opts) {
                 } else {
                     labels["path"] = req.path;
                 }
-                metrics["http_requests_total"].inc(labels);
                 timer();
             });
         }
